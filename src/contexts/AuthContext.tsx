@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { authService } from '@/lib/api';
 import { toast } from 'sonner';
@@ -46,9 +47,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       setLoading(true);
       const response = await authService.login(email, password);
       
-      // Create a user object with the role from the response
+      // Create a user object with the id from the response
       const userData = {
-        id: response.id || 'unknown',
+        id: response.userId || response.id || 'unknown',
         name: response.name || 'User',
         email: email,
         role: response.role

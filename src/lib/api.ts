@@ -32,7 +32,7 @@ export const authService = {
       // Store the token
       localStorage.setItem("fontify-token", response.data.token);
       
-      // Return data including role for routing
+      // Return data including userId and role for routing
       return {
         ...response.data,
         email // Include email since it might not be in the response
