@@ -1,3 +1,4 @@
+
 import axios, { AxiosRequestConfig } from "axios";
 
 const API_URL = "https://fontify-server.onrender.com";
@@ -27,7 +28,7 @@ api.interceptors.request.use(
 export const authService = {
   login: async (email: string, password: string) => {
     try {
-      const response = await api.post("/api/auth/login", { email, password });
+      const response = await api.post("/auth/login", { email, password });
       localStorage.setItem("fontify-token", response.data.token);
       localStorage.setItem("fontify-user", JSON.stringify(response.data.user));
       return response.data;
@@ -38,7 +39,7 @@ export const authService = {
 
   signup: async (name: string, email: string, password: string) => {
     try {
-      const response = await api.post("/api/auth/signup", {
+      const response = await api.post("/auth/signup", {
         name,
         email,
         password,
@@ -85,7 +86,7 @@ export const uploadService = {
         },
       };
       
-      const response = await api.post("/api/upload/images", formData, config);
+      const response = await api.post("/upload/images", formData, config);
       return response.data;
     } catch (error) {
       throw error;
@@ -103,7 +104,7 @@ export const uploadService = {
         },
       };
       
-      const response = await api.post("/api/upload/fonts", formData, config);
+      const response = await api.post("/upload/fonts", formData, config);
       return response.data;
     } catch (error) {
       throw error;
@@ -115,7 +116,7 @@ export const uploadService = {
 export const orderService = {
   createOrder: async (imageUrl: string) => {
     try {
-      const response = await api.post("/api/order", { imageUrl });
+      const response = await api.post("/order", { imageUrl });
       return response.data;
     } catch (error) {
       throw error;
@@ -124,7 +125,7 @@ export const orderService = {
 
   getUserOrders: async (userId: string) => {
     try {
-      const response = await api.get(`/api/order/${userId}`);
+      const response = await api.get(`/order/${userId}`);
       return response.data;
     } catch (error) {
       throw error;
@@ -133,7 +134,7 @@ export const orderService = {
 
   getOrderById: async (orderId: string) => {
     try {
-      const response = await api.get(`/api/order/get/${orderId}`);
+      const response = await api.get(`/order/get/${orderId}`);
       return response.data;
     } catch (error) {
       throw error;
@@ -143,7 +144,7 @@ export const orderService = {
   // Admin only
   getAllOrders: async () => {
     try {
-      const response = await api.get("/api/order/admin/");
+      const response = await api.get("/order/admin/");
       return response.data;
     } catch (error) {
       throw error;
@@ -153,7 +154,7 @@ export const orderService = {
   // Admin only
   updateOrderStatus: async (orderId: string, status: string, fontFileUrl?: string) => {
     try {
-      const response = await api.put("/api/order/admin/status", {
+      const response = await api.put("/order/admin/status", {
         orderId,
         status,
         fontFileUrl,
