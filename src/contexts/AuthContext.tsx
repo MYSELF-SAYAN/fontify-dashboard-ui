@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { authService } from '@/lib/api';
 import { toast } from 'sonner';
@@ -46,11 +45,22 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     try {
       setLoading(true);
       const response = await authService.login(email, password);
-      setUser(response.user);
+      
+      // Create a user object with the role from the response
+      const userData = {
+        id: response.id || 'unknown',
+        name: response.name || 'User',
+        email: email,
+        role: response.role
+      };
+      
+      localStorage.setItem("fontify-user", JSON.stringify(userData));
+      setUser(userData);
+      
       toast.success('Logged in successfully!');
       
       // Redirect based on role
-      if (response.user.role === 'admin') {
+      if (response.role === 'admin') {
         navigate('/admin');
       } else {
         navigate('/upload');

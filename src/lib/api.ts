@@ -1,4 +1,3 @@
-
 import axios, { AxiosRequestConfig } from "axios";
 
 const API_URL = "https://fontify-server.onrender.com";
@@ -29,9 +28,15 @@ export const authService = {
   login: async (email: string, password: string) => {
     try {
       const response = await api.post("/auth/login", { email, password });
+      
+      // Store the token
       localStorage.setItem("fontify-token", response.data.token);
-      localStorage.setItem("fontify-user", JSON.stringify(response.data.user));
-      return response.data;
+      
+      // Return data including role for routing
+      return {
+        ...response.data,
+        email // Include email since it might not be in the response
+      };
     } catch (error) {
       throw error;
     }
