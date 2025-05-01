@@ -40,15 +40,20 @@ const Upload = () => {
       toast.error('Please select an image to upload');
       return;
     }
+
+    if (!user || !user.id) {
+      toast.error('User not authenticated properly');
+      return;
+    }
     
     try {
       setUploading(true);
       // Upload image to get URL
       const uploadResponse = await uploadService.uploadImage(file);
       
-      // Create order with the uploaded image URL
+      // Create order with the uploaded image URL and userId
       if (uploadResponse && uploadResponse.url) {
-        await orderService.createOrder(uploadResponse.url);
+        await orderService.createOrder(user.id, uploadResponse.url);
         toast.success('Handwriting sample uploaded successfully!');
         handleRemoveFile();
       }

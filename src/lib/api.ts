@@ -119,9 +119,9 @@ export const uploadService = {
 
 // Order services
 export const orderService = {
-  createOrder: async (imageUrl: string) => {
+  createOrder: async (userId: string, imageUrl: string) => {
     try {
-      const response = await api.post("/order", { imageUrl });
+      const response = await api.post("/order", { userId, imageUrl });
       return response.data;
     } catch (error) {
       throw error;
