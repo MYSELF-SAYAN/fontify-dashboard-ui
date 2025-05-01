@@ -1,4 +1,3 @@
-
 import axios, { AxiosRequestConfig } from "axios";
 
 const API_URL = "https://fontify-server.onrender.com";
