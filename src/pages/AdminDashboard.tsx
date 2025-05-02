@@ -203,7 +203,6 @@ const AdminDashboard = () => {
                       <TableHead>Created Date</TableHead>
                       <TableHead>Status</TableHead>
                       <TableHead>Handwriting</TableHead>
-                      <TableHead>Font</TableHead>
                       <TableHead>Actions</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -241,50 +240,52 @@ const AdminDashboard = () => {
                           </Button>
                         </TableCell>
                         <TableCell>
-                          {order.fontFileUrl ? (
-                            <div className="flex flex-col gap-2">
-                              <a 
-                                href={order.fontFileUrl} 
-                                download
-                                className="flex items-center text-fontify-primary hover:text-fontify-accent"
-                              >
-                                <Download className="w-4 h-4 mr-1" />
-                                Download
-                              </a>
+                          <div className="flex flex-wrap gap-2">
+                            {order.fontFileUrl ? (
+                              <>
+                                <Button 
+                                  variant="outline" 
+                                  size="sm"
+                                  className="flex items-center gap-1 text-fontify-primary"
+                                  onClick={() => {
+                                    const link = document.createElement('a');
+                                    link.href = order.fontFileUrl || '';
+                                    link.download = `font-${order._id.substring(0, 8)}.ttf`;
+                                    document.body.appendChild(link);
+                                    link.click();
+                                    document.body.removeChild(link);
+                                  }}
+                                >
+                                  <Download className="h-4 w-4" /> Download
+                                </Button>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="flex items-center gap-1 text-red-500 hover:bg-red-50"
+                                  onClick={() => handleRemoveFont(order._id)}
+                                >
+                                  <X className="h-4 w-4" /> Remove
+                                </Button>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="flex items-center gap-1"
+                                  onClick={() => openUploadDialog(order)}
+                                >
+                                  <Upload className="h-4 w-4" /> Re-upload
+                                </Button>
+                              </>
+                            ) : (
                               <Button
-                                variant="ghost"
+                                variant="outline"
                                 size="sm"
-                                className="flex items-center text-red-500 hover:text-red-700 hover:bg-red-50"
-                                onClick={() => handleRemoveFont(order._id)}
+                                className="flex items-center gap-1"
+                                onClick={() => openUploadDialog(order)}
                               >
-                                <X className="w-4 h-4 mr-1" />
-                                Remove
+                                <Upload className="h-4 w-4" /> Upload Font
                               </Button>
-                            </div>
-                          ) : (
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => openUploadDialog(order)}
-                              className="flex items-center gap-1"
-                            >
-                              <Upload className="w-4 h-4" />
-                              Upload Font
-                            </Button>
-                          )}
-                        </TableCell>
-                        <TableCell>
-                          {order.fontFileUrl && (
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => openUploadDialog(order)}
-                              className="flex items-center gap-1"
-                            >
-                              <Upload className="w-4 h-4" />
-                              Re-upload
-                            </Button>
-                          )}
+                            )}
+                          </div>
                         </TableCell>
                       </TableRow>
                     ))}

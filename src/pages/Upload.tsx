@@ -33,6 +33,15 @@ const Upload = () => {
     setPreviewUrl(null);
   };
 
+  const handleDownloadSheet = () => {
+    const link = document.createElement('a');
+    link.href = 'https://res.cloudinary.com/dih3lmqfv/image/upload/v1746081975/images/Screenshot%20%288%29.png.png';
+    link.download = 'handwriting_template.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -70,14 +79,13 @@ const Upload = () => {
       <div className="space-y-8">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-semibold">Upload Handwriting Sample</h2>
-          <a 
-            href="https://res.cloudinary.com/dih3lmqfv/image/upload/v1746081975/images/Screenshot%20%288%29.png.png" 
-            download 
+          <Button 
+            onClick={handleDownloadSheet}
             className="flex items-center gap-2 bg-fontify-primary hover:bg-fontify-accent text-white px-4 py-2 rounded-md transition-colors"
           >
             <FileDown className="h-5 w-5" />
             Download Sheet
-          </a>
+          </Button>
         </div>
         
         <Card className="shadow-sm">
