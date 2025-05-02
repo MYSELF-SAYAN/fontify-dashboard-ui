@@ -91,7 +91,7 @@ const Upload = () => {
                   </p>
                   
                   {!previewUrl ? (
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-12">
+                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-12 relative">
                       <div className="flex flex-col items-center justify-center text-center">
                         <UploadIcon className="h-12 w-12 text-gray-400 mb-4" />
                         <p className="text-xl font-medium text-gray-700">Drop your image here</p>
@@ -101,6 +101,7 @@ const Upload = () => {
                           accept="image/*"
                           onChange={handleFileChange}
                           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                          style={{ pointerEvents: 'auto' }}
                         />
                       </div>
                     </div>
