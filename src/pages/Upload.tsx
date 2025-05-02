@@ -71,7 +71,7 @@ const Upload = () => {
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-semibold">Upload Handwriting Sample</h2>
           <a 
-            href="/template.pdf" 
+            href="https://res.cloudinary.com/dih3lmqfv/image/upload/v1746081975/images/Screenshot%20%288%29.png.png" 
             download 
             className="flex items-center gap-2 bg-fontify-primary hover:bg-fontify-accent text-white px-4 py-2 rounded-md transition-colors"
           >

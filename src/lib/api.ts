@@ -1,3 +1,4 @@
+
 import axios, { AxiosRequestConfig } from "axios";
 
 const API_URL = "https://fontify-server.onrender.com";
@@ -159,11 +160,17 @@ export const orderService = {
   // Admin only
   updateOrderStatus: async (orderId: string, status: string, fontFileUrl?: string) => {
     try {
-      const response = await api.put("/order/admin/status", {
+      const payload: { orderId: string; status: string; fontFileUrl?: string } = {
         orderId,
         status,
-        fontFileUrl,
-      });
+      };
+      
+      // Only include fontFileUrl if it's provided and not empty
+      if (fontFileUrl !== undefined) {
+        payload.fontFileUrl = fontFileUrl;
+      }
+      
+      const response = await api.put("/order/admin/status", payload);
       return response.data;
     } catch (error) {
       throw error;
