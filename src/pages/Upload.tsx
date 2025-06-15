@@ -35,8 +35,9 @@ const Upload = () => {
 
   const handleDownloadSheet = () => {
     const link = document.createElement('a');
-    link.href = 'https://res.cloudinary.com/dih3lmqfv/image/upload/v1746081975/images/Screenshot%20%288%29.png.png';
-    link.download = 'handwriting_template.png';
+    link.href = 'https://res.cloudinary.com/dub6akzeg/image/upload/v1750000446/Fonts_To_Upload_page-0001_ueafnj.jpg';
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
